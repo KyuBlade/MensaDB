@@ -1,0 +1,12 @@
+import java.util.jar.JarEntry;
+
+apply plugin: "java"
+
+sourceCompatibility = 1.6
+sourceSets.main.java.srcDirs = ["src/"]
+
+project.archivesBaseName = appName + "-desktop"
+
+eclipse {
+    project { name = appName + "-desktop" }
+}

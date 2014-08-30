@@ -1,0 +1,52 @@
+buildscript {
+    repositories {
+	mavenCentral()
+	mavenLocal()
+    }
+    dependencies { classpath 'com.android.tools.build:gradle:0.9+' }
+}
+
+allprojects {
+    apply plugin: "java"
+    apply plugin: "eclipse"
+    apply plugin: "idea"
+    apply plugin: "maven"
+
+    version = '1.0'
+    group = 'com.badlogic.gdx.sqlite'
+    ext {
+	appName = 'gdx-sqlite'
+	roboVMVersion = '0.0.14'
+    }
+    repositories {
+	mavenLocal()
+	mavenCentral()
+	maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+	maven { url "https://oss.sonatype.org/content/repositories/releases/" }
+    }
+}
+
+project(":desktop") {
+    dependencies {
+	compile project(":core")
+	compile 'org.xerial:sqlite-jdbc:3.8.5-pre1'
+	//compile 'javax.sql:rowset:1.0.1'
+	compile 'org.slf4j:slf4j-api:1.7.7'
+    }
+}
+
+project(":android") {
+    dependencies {
+	compile project(":core")
+	compile 'com.google.android:support-v4:r7'
+	compile ('com.google.android:android:4.1.1.4') {
+	    exclude group: 'xerces', module: 'xmlParserAPIs'
+	    exclude group: 'xpp3', module: 'xpp3'
+	}
+	compile 'org.slf4j:slf4j-api:1.7.7'
+    }
+}
+
+project(":core") { dependencies { compile 'org.slf4j:slf4j-api:1.7.7' } }
+
+tasks.eclipse.doLast { delete ".project" }

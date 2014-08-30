@@ -1,0 +1,7 @@
+sourceCompatibility = 1.6
+sourceSets.main.java.srcDirs = ["src/"]
+
+project.archivesBaseName = appName + "-android"
+eclipse {
+    project { name = appName + "-android" }
+}
