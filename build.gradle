@@ -13,9 +13,9 @@ allprojects {
     apply plugin: "maven"
 
     version = '1.0'
-    group = 'com.badlogic.gdx.sqlite'
+    group = 'com.mensa.database'
     ext {
-	appName = 'gdx-sqlite'
+	appName = 'MensaDB'
 	roboVMVersion = '0.0.14'
     }
     repositories {
