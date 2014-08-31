@@ -1,4 +1,4 @@
-package com.badlogic.gdx.sqlite.core;
+package com.mensa.database.sqlite.core;
 
 import java.io.InputStream;
 import java.sql.Blob;

@@ -1,4 +1,4 @@
-package com.badlogic.gdx.sqlite.core;
+package com.mensa.database.sqlite.core;
 
 /**
  * Unchecked runtime exception for SQLite used in this extension.

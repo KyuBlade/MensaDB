@@ -1,4 +1,4 @@
-package com.badlogic.gdx.sqlite;
+package com.mensa.database.sqlite;
 
 import java.io.InputStream;
 import java.sql.Blob;
@@ -7,9 +7,9 @@ import java.sql.SQLException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.badlogic.gdx.sqlite.core.SQLiteException;
+import com.mensa.database.sqlite.core.SQLiteException;
 
-public class PreparedStatement implements com.badlogic.gdx.sqlite.core.PreparedStatement {
+public class PreparedStatement implements com.mensa.database.sqlite.core.PreparedStatement {
 
     private static final Logger logger = LoggerFactory.getLogger(PreparedStatement.class);
 

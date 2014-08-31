@@ -1,4 +1,4 @@
-package com.badlogic.gdx.sqlite.core;
+package com.mensa.database.sqlite.core;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

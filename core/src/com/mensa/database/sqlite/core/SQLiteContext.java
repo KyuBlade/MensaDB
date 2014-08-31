@@ -1,4 +1,4 @@
-package com.badlogic.gdx.sqlite.core;
+package com.mensa.database.sqlite.core;
 
 public final class SQLiteContext<T> {
 

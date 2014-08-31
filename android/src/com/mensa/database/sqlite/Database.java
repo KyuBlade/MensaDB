@@ -1,4 +1,4 @@
-package com.badlogic.gdx.sqlite;
+package com.mensa.database.sqlite;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,10 +8,10 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.badlogic.gdx.sqlite.core.SQLiteException;
-import com.badlogic.gdx.sqlite.core.SQLiteRuntimeException;
+import com.mensa.database.sqlite.core.SQLiteException;
+import com.mensa.database.sqlite.core.SQLiteRuntimeException;
 
-public class Database implements com.badlogic.gdx.sqlite.core.Database {
+public class Database implements com.mensa.database.sqlite.core.Database {
 
     private static final Logger logger = LoggerFactory.getLogger(Database.class);
     
@@ -76,7 +76,7 @@ public class Database implements com.badlogic.gdx.sqlite.core.Database {
 	try {
 	    database.execSQL(sql);
 	} catch (SQLException e) {
-	    throw new com.badlogic.gdx.sqlite.core.SQLiteException(e);
+	    throw new com.mensa.database.sqlite.core.SQLiteException(e);
 	}
     }
 
@@ -93,7 +93,7 @@ public class Database implements com.badlogic.gdx.sqlite.core.Database {
     }
 
     @Override
-    public com.badlogic.gdx.sqlite.core.DatabaseCursor rawQuery(com.badlogic.gdx.sqlite.core.DatabaseCursor cursor, String sql) throws SQLiteException {
+    public DatabaseCursor rawQuery(com.mensa.database.sqlite.core.DatabaseCursor cursor, String sql) throws SQLiteException {
 	DatabaseCursor aCursor = (DatabaseCursor) cursor;
 	try {
 	    Cursor tmp = database.rawQuery(sql, null);
@@ -115,10 +115,10 @@ public class Database implements com.badlogic.gdx.sqlite.core.Database {
     }
 
     @Override
-    public com.badlogic.gdx.sqlite.core.PreparedStatement getPreparedStatement(String query) throws SQLiteRuntimeException {
+    public com.mensa.database.sqlite.core.PreparedStatement getPreparedStatement(String query) throws SQLiteRuntimeException {
 	preparedStatement.setStatement(database.compileStatement(query));
 
-	return (com.badlogic.gdx.sqlite.core.PreparedStatement) preparedStatement;
+	return (com.mensa.database.sqlite.core.PreparedStatement) preparedStatement;
     }
 
 }

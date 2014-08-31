@@ -1,5 +1,5 @@
 
-package com.badlogic.gdx.sqlite;
+package com.mensa.database.sqlite;
 
 import java.sql.SQLException;
 import java.sql.Statement;

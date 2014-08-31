@@ -1,4 +1,4 @@
-package com.badlogic.gdx.sqlite.core;
+package com.mensa.database.sqlite.core;
 
 /**
  * This public interface contains the necessary methods to setup and execute queries on a database. The factory method {@link DatabaseFactory#getNewDatabase(String, int, String, String)} will return a

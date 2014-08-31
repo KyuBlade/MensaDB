@@ -1,4 +1,4 @@
-package com.badlogic.gdx.sqlite;
+package com.mensa.database.sqlite;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

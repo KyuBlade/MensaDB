@@ -1,15 +1,15 @@
-package com.badlogic.gdx.sqlite;
+package com.mensa.database.sqlite;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import android.database.Cursor;
 
-import com.badlogic.gdx.sqlite.core.SQLiteRuntimeException;
+import com.mensa.database.sqlite.core.SQLiteRuntimeException;
 
 
 /** @author M Rafay Aleem */
-public class DatabaseCursor implements com.badlogic.gdx.sqlite.core.DatabaseCursor {
+public class DatabaseCursor implements com.mensa.database.sqlite.core.DatabaseCursor {
     
     private static final Logger logger = LoggerFactory.getLogger(DatabaseCursor.class);
     

@@ -1,4 +1,4 @@
-package com.badlogic.gdx.sqlite;
+package com.mensa.database.sqlite;
 
 import java.sql.Blob;
 import java.sql.ResultSet;
@@ -7,8 +7,8 @@ import java.sql.SQLException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.badlogic.gdx.sqlite.core.SQLiteException;
-import com.badlogic.gdx.sqlite.core.SQLiteRuntimeException;
+import com.mensa.database.sqlite.core.SQLiteException;
+import com.mensa.database.sqlite.core.SQLiteRuntimeException;
 import com.sun.rowset.CachedRowSetImpl;
 
 /**
@@ -17,7 +17,7 @@ import com.sun.rowset.CachedRowSetImpl;
  * 
  * @author M Rafay Aleem
  */
-public class DatabaseCursor implements com.badlogic.gdx.sqlite.core.DatabaseCursor {
+public class DatabaseCursor implements com.mensa.database.sqlite.core.DatabaseCursor {
 
     private static final Logger logger = LoggerFactory.getLogger(DatabaseCursor.class);
 

@@ -1,5 +1,5 @@
 
-package com.badlogic.gdx.sqlite.core;
+package com.mensa.database.sqlite.core;
 
 /** This public interface contains all the methods to expose results from a query on a SQLiteDatabase. This is not thread-safe.
  * @author M Rafay Aleem */

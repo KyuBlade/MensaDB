@@ -1,4 +1,4 @@
-package com.badlogic.gdx.sqlite;
+package com.mensa.database.sqlite;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,10 +9,10 @@ import java.sql.Statement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.badlogic.gdx.sqlite.core.SQLiteException;
-import com.badlogic.gdx.sqlite.core.SQLiteRuntimeException;
+import com.mensa.database.sqlite.core.SQLiteException;
+import com.mensa.database.sqlite.core.SQLiteRuntimeException;
 
-public class Database implements com.badlogic.gdx.sqlite.core.Database {
+public class Database implements com.mensa.database.sqlite.core.Database {
 
     private static final Logger logger = LoggerFactory.getLogger(Database.class);
 
@@ -110,7 +110,7 @@ public class Database implements com.badlogic.gdx.sqlite.core.Database {
 
     @Override
     public DatabaseCursor rawQuery(String sql) throws SQLiteException {
-	DatabaseCursor lCursor = new com.badlogic.gdx.sqlite.DatabaseCursor();
+	DatabaseCursor lCursor = new com.mensa.database.sqlite.DatabaseCursor();
 	try {
 	    ResultSet resultSetRef = stmt.executeQuery(sql);
 	    lCursor.setNativeCursor(resultSetRef);
@@ -121,7 +121,7 @@ public class Database implements com.badlogic.gdx.sqlite.core.Database {
     }
 
     @Override
-    public com.badlogic.gdx.sqlite.core.DatabaseCursor rawQuery(com.badlogic.gdx.sqlite.core.DatabaseCursor cursor, String sql) throws SQLiteException {
+    public com.mensa.database.sqlite.core.DatabaseCursor rawQuery(com.mensa.database.sqlite.core.DatabaseCursor cursor, String sql) throws SQLiteException {
 	DatabaseCursor lCursor = (DatabaseCursor) cursor;
 	try {
 	    ResultSet resultSetRef = stmt.executeQuery(sql);

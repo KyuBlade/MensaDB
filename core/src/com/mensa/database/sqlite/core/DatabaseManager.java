@@ -1,4 +1,4 @@
-package com.badlogic.gdx.sqlite.core;
+package com.mensa.database.sqlite.core;
 
 /** @author M Rafay Aleem */
 public interface DatabaseManager {
@@ -11,6 +11,7 @@ public interface DatabaseManager {
      * etc.). Then dbOnCreateQuery will be executed. However, dbOnUpgradeQuery won't be executed on downgrading the database
      * version.
      * 
+     * @param the android context or null for desktop
      * @param dbName The name of the database.
      * @param dbVersion number of the database (starting at 1); if the database is older, dbOnUpgradeQuery will be used to upgrade
      * the database (on Android only)
@@ -18,6 +19,7 @@ public interface DatabaseManager {
      * the necessary tables in the database.
      * @param dbOnUpgradeQuery The query that should be executed on upgrading the database from an old version to a new one.
      * @return Returns a {@link Database} object pointing to an existing or not-yet-created database.
+     * @throws IllegalArgumentException throw from android if the context is not an android context
      */
-    public Database getNewDatabase(SQLiteContext<?> context, String dbName, int dbVersion, String dbOnCreateQuery, String dbOnUpgradeQuery);
+    public Database getNewDatabase(SQLiteContext<?> context, String dbName, int dbVersion, String dbOnCreateQuery, String dbOnUpgradeQuery) throws IllegalArgumentException;
 }

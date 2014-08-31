@@ -1,5 +1,5 @@
 
-package com.badlogic.gdx.sqlite.core;
+package com.mensa.database.sqlite.core;
 
 /** Checked Exception for SQLite used in this extension.
  * 

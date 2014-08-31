@@ -1,5 +1,5 @@
 
-package com.badlogic.gdx.sqlite.core;
+package com.mensa.database.sqlite.core;
 
 /** Result codes taken from http://www.sqlite.org/c3ref/c_abort.html
  * 
