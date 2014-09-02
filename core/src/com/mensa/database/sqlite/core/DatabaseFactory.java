@@ -33,7 +33,7 @@ public class DatabaseFactory {
      */
     public static Database getNewDatabase(SQLiteContext<?> context, String dbName, int dbVersion, String dbOnCreateQuery, String dbOnUpgradeQuery) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
 	try {
-	    manager = (DatabaseManager) Class.forName("com.badlogic.gdx.sqlite.DatabaseManager").newInstance();
+	    manager = (DatabaseManager) Class.forName("com.mensa.database.sqlite.DatabaseManager").newInstance();
 	} catch (ClassNotFoundException e) {
 	    logger.error("Unable to load database driver", e);
 	    throw e;
