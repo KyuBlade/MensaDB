@@ -24,13 +24,6 @@ public interface Database {
     public void setupDatabase() throws SQLiteException;
     
     /**
-     * Open an already existing database.
-     * 
-     * @throws SQLiteException
-     */
-    public void openDatabase() throws SQLiteException;
-
-    /**
      * Open an already existing database or creates a new database if it doesn't already exist.
      * 
      * @throws SQLiteGdxException

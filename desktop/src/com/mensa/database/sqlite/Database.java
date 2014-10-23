@@ -39,18 +39,6 @@ public class Database implements com.mensa.database.sqlite.core.Database {
     }
 
     @Override
-    public void openDatabase() throws SQLiteException {
-	if (helper == null)
-	    helper = new SQLiteDatabaseHelper(dbName, dbVersion, dbOnCreateQuery, dbOnUpgradeQuery);
-
-	try {
-	    connection = DriverManager.getConnection("jdbc:sqlite:" + dbName);
-	} catch (SQLException e) {
-	    throw new SQLiteException("Unable to open " + dbName, e);
-	}
-    }
-
-    @Override
     public void openOrCreateDatabase() throws SQLiteException {
 	if (helper == null)
 	    helper = new SQLiteDatabaseHelper(dbName, dbVersion, dbOnCreateQuery, dbOnUpgradeQuery);
@@ -61,7 +49,7 @@ public class Database implements com.mensa.database.sqlite.core.Database {
 	    preparedStatement = new PreparedStatement();
 	    helper.onCreate(stmt);
 	} catch (SQLException e) {
-	    throw new SQLiteException("Unable to open or create databse " + dbName, e);
+	    throw new SQLiteException("Unable to open or create database " + dbName, e);
 	}
     }
 

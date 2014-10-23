@@ -33,17 +33,6 @@ public class Database implements com.mensa.database.sqlite.core.Database {
     }
 
     @Override
-    public void openDatabase() throws SQLiteException {
-	helper = new SQLiteDatabaseHelper(context, dbName, null, dbVersion, null, null);
-	try {
-	    database = helper.getWritableDatabase();
-	    preparedStatement = new PreparedStatement();
-	} catch (android.database.sqlite.SQLiteException e) {
-	    throw new SQLiteException("Unable to open database " + dbName, e);
-	}
-    }
-
-    @Override
     public void openOrCreateDatabase() throws SQLiteException {
 	helper = new SQLiteDatabaseHelper(context, dbName, null, dbVersion, dbOnCreateQuery, dbOnUpgradeQuery);
 	try {
