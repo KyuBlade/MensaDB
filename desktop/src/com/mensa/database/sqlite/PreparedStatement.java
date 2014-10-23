@@ -4,14 +4,9 @@ import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.SQLException;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.mensa.database.sqlite.core.SQLiteException;
 
 public class PreparedStatement implements com.mensa.database.sqlite.core.PreparedStatement {
-
-    private static final Logger logger = LoggerFactory.getLogger(PreparedStatement.class);
 
     private java.sql.PreparedStatement statement;
 
@@ -21,8 +16,7 @@ public class PreparedStatement implements com.mensa.database.sqlite.core.Prepare
 	    statement.execute();
 	    statement.close();
 	} catch (SQLException e) {
-	    logger.error("There is an error in executing the prepared statement", e);
-	    throw new SQLiteException(e);
+	    throw new SQLiteException("There is an error in executing the prepared statement", e);
 	}
     }
 
@@ -32,8 +26,7 @@ public class PreparedStatement implements com.mensa.database.sqlite.core.Prepare
 	    statement.execute();
 	    return statement.getGeneratedKeys().getLong(1);
 	} catch (SQLException e) {
-	    logger.error("There is an error in executing the prepared statement", e);
-	    throw new SQLiteException(e);
+	    throw new SQLiteException("There is an error in executing the prepared statement", e);
 	}
     }
 
@@ -42,8 +35,7 @@ public class PreparedStatement implements com.mensa.database.sqlite.core.Prepare
 	try {
 	    return statement.executeUpdate();
 	} catch (SQLException e) {
-	    logger.error("There is an error in executing the prepared statement", e);
-	    throw new SQLiteException(e);
+	    throw new SQLiteException("There is an error in executing the prepared statement", e);
 	}
     }
 
@@ -52,8 +44,7 @@ public class PreparedStatement implements com.mensa.database.sqlite.core.Prepare
 	try {
 	    statement.clearParameters();
 	} catch (SQLException e) {
-	    logger.error("There is an error in clearing parameters the prepared statement", e);
-	    throw new SQLiteException(e);
+	    throw new SQLiteException("There is an error in clearing parameters the prepared statement", e);
 	}
     }
 
@@ -62,8 +53,7 @@ public class PreparedStatement implements com.mensa.database.sqlite.core.Prepare
 	try {
 	    statement.close();
 	} catch (SQLException e) {
-	    logger.warn("Prepared statement not closed correctly", e);
-	    throw new SQLiteException(e);
+	    throw new SQLiteException("Prepared statement not closed correctly", e);
 	}
     }
 
@@ -72,8 +62,7 @@ public class PreparedStatement implements com.mensa.database.sqlite.core.Prepare
 	try {
 	    statement.setNull(parameterIndex, type);
 	} catch (SQLException e) {
-	    logger.error("Can't set null value tostatement for parameter index : " + parameterIndex, e);
-	    throw new SQLiteException(e);
+	    throw new SQLiteException("Can't set null value tostatement for parameter index : " + parameterIndex, e);
 	}
     }
 
@@ -82,8 +71,7 @@ public class PreparedStatement implements com.mensa.database.sqlite.core.Prepare
 	try {
 	    statement.setInt(parameterIndex, value);
 	} catch (SQLException e) {
-	    logger.error("Can't set int value to statement for parameter index : " + parameterIndex, e);
-	    throw new SQLiteException(e);
+	    throw new SQLiteException("Can't set int value to statement for parameter index : " + parameterIndex, e);
 	}
     }
 
@@ -92,8 +80,7 @@ public class PreparedStatement implements com.mensa.database.sqlite.core.Prepare
 	try {
 	    statement.setLong(parameterIndex, value);
 	} catch (SQLException e) {
-	    logger.error("Can't set long value to statement for parameter index : " + parameterIndex, e);
-	    throw new SQLiteException(e);
+	    throw new SQLiteException("Can't set long value to statement for parameter index : " + parameterIndex, e);
 	}
     }
 
@@ -102,8 +89,7 @@ public class PreparedStatement implements com.mensa.database.sqlite.core.Prepare
 	try {
 	    statement.setFloat(parameterIndex, value);
 	} catch (SQLException e) {
-	    logger.error("Can't set float value to statement for parameter index : " + parameterIndex, e);
-	    throw new SQLiteException(e);
+	    throw new SQLiteException("Can't set float value to statement for parameter index : " + parameterIndex, e);
 	}
     }
 
@@ -112,8 +98,7 @@ public class PreparedStatement implements com.mensa.database.sqlite.core.Prepare
 	try {
 	    statement.setDouble(parameterIndex, value);
 	} catch (SQLException e) {
-	    logger.error("Can't set double value to statement for parameter index : " + parameterIndex, e);
-	    throw new SQLiteException(e);
+	    throw new SQLiteException("Can't set double value to statement for parameter index : " + parameterIndex, e);
 	}
     }
 
@@ -122,8 +107,7 @@ public class PreparedStatement implements com.mensa.database.sqlite.core.Prepare
 	try {
 	    statement.setString(parameterIndex, value);
 	} catch (SQLException e) {
-	    logger.error("Can't set string value to statement for parameter index : " + parameterIndex, e);
-	    throw new SQLiteException(e);
+	    throw new SQLiteException("Can't set string value to statement for parameter index : " + parameterIndex, e);
 	}
     }
 
@@ -132,8 +116,7 @@ public class PreparedStatement implements com.mensa.database.sqlite.core.Prepare
 	try {
 	    statement.setBlob(parameterIndex, blob);
 	} catch (SQLException e) {
-	    logger.error("Can't set blob to statement for parameter index : " + parameterIndex, e);
-	    throw new SQLiteException(e);
+	    throw new SQLiteException("Can't set blob to statement for parameter index : " + parameterIndex, e);
 	}
     }
 
@@ -142,8 +125,7 @@ public class PreparedStatement implements com.mensa.database.sqlite.core.Prepare
 	try {
 	    statement.setBlob(parameterIndex, stream);
 	} catch (SQLException e) {
-	    logger.error("Can't set blob to statement for parameter index : " + parameterIndex, e);
-	    throw new SQLiteException(e);
+	    throw new SQLiteException("Can't set blob to statement for parameter index : " + parameterIndex, e);
 	}
     }
 
@@ -152,8 +134,7 @@ public class PreparedStatement implements com.mensa.database.sqlite.core.Prepare
 	try {
 	    statement.setBytes(parameterIndex, b);
 	} catch (SQLException e) {
-	    logger.error("Can't set bytes to statement for parameter index : " + parameterIndex, e);
-	    throw new SQLiteException(e);
+	    throw new SQLiteException("Can't set bytes to statement for parameter index : " + parameterIndex, e);
 	}
     }
 

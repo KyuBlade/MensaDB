@@ -45,9 +45,13 @@ public interface DatabaseCursor {
 	public boolean next ();
 
 	/** Returns the numbers of rows in the cursor.
+	 * @deprecated <br />
+	 * Low performance on desktop. <br />
+	 * Add a count(*) in your query instead.
 	 * @return number of rows
-	 * @throws SQLiteGdxException */
-	public int getCount ();
+	 * @throws SQLiteException */
+	@Deprecated
+	public int getCount () throws SQLiteException;
 
 	/** Closes the Cursor, releasing all of its resources and making it completely invalid. */
 	public void close ();

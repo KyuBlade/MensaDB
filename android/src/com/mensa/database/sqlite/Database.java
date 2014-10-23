@@ -1,8 +1,5 @@
 package com.mensa.database.sqlite;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -13,8 +10,6 @@ import com.mensa.database.sqlite.core.SQLiteRuntimeException;
 
 public class Database implements com.mensa.database.sqlite.core.Database {
 
-    private static final Logger logger = LoggerFactory.getLogger(Database.class);
-    
     private SQLiteDatabaseHelper helper;
     private SQLiteDatabase database;
     private Context context;
@@ -35,16 +30,27 @@ public class Database implements com.mensa.database.sqlite.core.Database {
 
     @Override
     public void setupDatabase() {
-	helper = new SQLiteDatabaseHelper(context, dbName, null, dbVersion, dbOnCreateQuery, dbOnUpgradeQuery);
     }
 
     @Override
-    public void openOrCreateDatabase() throws SQLiteException {
+    public void openDatabase() throws SQLiteException {
+	helper = new SQLiteDatabaseHelper(context, dbName, null, dbVersion, null, null);
 	try {
 	    database = helper.getWritableDatabase();
 	    preparedStatement = new PreparedStatement();
 	} catch (android.database.sqlite.SQLiteException e) {
-	    throw new SQLiteException(e);
+	    throw new SQLiteException("Unable to open database " + dbName, e);
+	}
+    }
+
+    @Override
+    public void openOrCreateDatabase() throws SQLiteException {
+	helper = new SQLiteDatabaseHelper(context, dbName, null, dbVersion, dbOnCreateQuery, dbOnUpgradeQuery);
+	try {
+	    database = helper.getWritableDatabase();
+	    preparedStatement = new PreparedStatement();
+	} catch (android.database.sqlite.SQLiteException e) {
+	    throw new SQLiteException("Unable to open or create database " + dbName, e);
 	}
     }
 
@@ -53,7 +59,7 @@ public class Database implements com.mensa.database.sqlite.core.Database {
 	try {
 	    helper.close();
 	} catch (android.database.sqlite.SQLiteException e) {
-	    throw new SQLiteException(e);
+	    throw new SQLiteException("Database wasn't closed properly", e);
 	}
     }
 
@@ -109,8 +115,7 @@ public class Database implements com.mensa.database.sqlite.core.Database {
 	try {
 	    return rawQuery("SELECT last_insert_rowid();").getLong(0);
 	} catch (SQLiteException e) {
-	    logger.warn("There was an error in getting the last generated id", e);
-	    throw new SQLiteRuntimeException(e);
+	    throw new SQLiteRuntimeException("There was an error in getting the last generated id", e);
 	}
     }
 

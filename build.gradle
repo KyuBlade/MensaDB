@@ -30,8 +30,6 @@ project(":desktop") {
     dependencies {
 	compile project(":core")
 	compile 'org.xerial:sqlite-jdbc:3.8.5-pre1'
-	//compile 'javax.sql:rowset:1.0.1'
-	compile 'org.slf4j:slf4j-api:1.7.7'
     }
 }
 
@@ -43,10 +41,9 @@ project(":android") {
 	    exclude group: 'xerces', module: 'xmlParserAPIs'
 	    exclude group: 'xpp3', module: 'xpp3'
 	}
-	compile 'org.slf4j:slf4j-api:1.7.7'
     }
 }
 
-project(":core") { dependencies { compile 'org.slf4j:slf4j-api:1.7.7' } }
+project(":core") { dependencies { } }
 
 tasks.eclipse.doLast { delete ".project" }

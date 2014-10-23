@@ -1,18 +1,12 @@
 package com.mensa.database.sqlite;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import android.database.Cursor;
 
 import com.mensa.database.sqlite.core.SQLiteRuntimeException;
 
-
 /** @author M Rafay Aleem */
 public class DatabaseCursor implements com.mensa.database.sqlite.core.DatabaseCursor {
-    
-    private static final Logger logger = LoggerFactory.getLogger(DatabaseCursor.class);
-    
+
     private Cursor cursor;
 
     @Override
@@ -20,8 +14,7 @@ public class DatabaseCursor implements com.mensa.database.sqlite.core.DatabaseCu
 	try {
 	    return cursor.getBlob(columnIndex);
 	} catch (android.database.sqlite.SQLiteException e) {
-	    logger.error("There was an error in getting the blob", e);
-	    throw new SQLiteRuntimeException(e);
+	    throw new SQLiteRuntimeException("There was an error in getting the blob at column " + columnIndex, e);
 	}
     }
 
@@ -30,8 +23,7 @@ public class DatabaseCursor implements com.mensa.database.sqlite.core.DatabaseCu
 	try {
 	    return cursor.getDouble(columnIndex);
 	} catch (android.database.sqlite.SQLiteException e) {
-	    logger.error("There was an error in getting the double", e);
-	    throw new SQLiteRuntimeException(e);
+	    throw new SQLiteRuntimeException("There was an error in getting the double at column " + columnIndex, e);
 	}
     }
 
@@ -40,8 +32,7 @@ public class DatabaseCursor implements com.mensa.database.sqlite.core.DatabaseCu
 	try {
 	    return cursor.getFloat(columnIndex);
 	} catch (android.database.sqlite.SQLiteException e) {
-	    logger.error("There was an error in getting the float", e);
-	    throw new SQLiteRuntimeException(e);
+	    throw new SQLiteRuntimeException("There was an error in getting the float at column " + columnIndex, e);
 	}
     }
 
@@ -50,8 +41,7 @@ public class DatabaseCursor implements com.mensa.database.sqlite.core.DatabaseCu
 	try {
 	    return cursor.getInt(columnIndex);
 	} catch (android.database.sqlite.SQLiteException e) {
-	    logger.error("There was an error in getting the int", e);
-	    throw new SQLiteRuntimeException(e);
+	    throw new SQLiteRuntimeException("There was an error in getting the integer at column " + columnIndex, e);
 	}
     }
 
@@ -60,8 +50,7 @@ public class DatabaseCursor implements com.mensa.database.sqlite.core.DatabaseCu
 	try {
 	    return cursor.getLong(columnIndex);
 	} catch (android.database.sqlite.SQLiteException e) {
-	    logger.error("There was an error in getting the long", e);
-	    throw new SQLiteRuntimeException(e);
+	    throw new SQLiteRuntimeException("There was an error in getting the long at column " + columnIndex, e);
 	}
     }
 
@@ -70,8 +59,7 @@ public class DatabaseCursor implements com.mensa.database.sqlite.core.DatabaseCu
 	try {
 	    return cursor.getShort(columnIndex);
 	} catch (android.database.sqlite.SQLiteException e) {
-	    logger.error("There was an error in getting the short", e);
-	    throw new SQLiteRuntimeException(e);
+	    throw new SQLiteRuntimeException("There was an error in getting the short at column " + columnIndex, e);
 	}
     }
 
@@ -80,8 +68,7 @@ public class DatabaseCursor implements com.mensa.database.sqlite.core.DatabaseCu
 	try {
 	    return cursor.getString(columnIndex);
 	} catch (android.database.sqlite.SQLiteException e) {
-	    logger.error("There was an error in getting the string", e);
-	    throw new SQLiteRuntimeException(e);
+	    throw new SQLiteRuntimeException("There was an error in getting the string at column " + columnIndex, e);
 	}
     }
 
@@ -90,20 +77,20 @@ public class DatabaseCursor implements com.mensa.database.sqlite.core.DatabaseCu
 	try {
 	    return cursor.moveToNext();
 	} catch (android.database.sqlite.SQLiteException e) {
-	    logger.error("There was an error in moving the cursor to next", e);
-	    throw new SQLiteRuntimeException(e);
+	    throw new SQLiteRuntimeException("Unable to move to next", e);
 	}
     }
 
+    @SuppressWarnings("deprecation")
     @Override
+    @Deprecated
     public int getCount() {
 	int count = -1;
 	try {
 	    count = cursor.getCount();
 	    return count;
 	} catch (android.database.sqlite.SQLiteException e) {
-	    logger.error("Can't get count", e);
-	    throw new SQLiteRuntimeException(e);
+	    throw new SQLiteRuntimeException("Unable to get count", e);
 	}
     }
 
@@ -112,8 +99,7 @@ public class DatabaseCursor implements com.mensa.database.sqlite.core.DatabaseCu
 	try {
 	    cursor.close();
 	} catch (android.database.sqlite.SQLiteException e) {
-	    logger.error("There was an error in closing the cursor", e);
-	    throw new SQLiteRuntimeException(e);
+	    throw new SQLiteRuntimeException("The cursor wasn't closed properly", e);
 	}
     }
 

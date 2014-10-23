@@ -5,16 +5,11 @@ import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.SQLException;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import android.database.sqlite.SQLiteStatement;
 
 import com.mensa.database.sqlite.core.SQLiteException;
 
 public class PreparedStatement implements com.mensa.database.sqlite.core.PreparedStatement {
-
-    private static final Logger logger = LoggerFactory.getLogger(PreparedStatement.class);
     
     private SQLiteStatement statement;
 
@@ -85,8 +80,7 @@ public class PreparedStatement implements com.mensa.database.sqlite.core.Prepare
 	try {
 	    statement.bindBlob(parameterIndex, blob.getBytes(0, (int) blob.length()));
 	} catch (SQLException e) {
-	    logger.error("Can't set blob to statement for parameter index : " + parameterIndex, e);
-	    throw new SQLiteException(e);
+	    throw new SQLiteException("Can't set blob to statement for parameter index : " + parameterIndex, e);
 	}
     }
 
@@ -97,8 +91,7 @@ public class PreparedStatement implements com.mensa.database.sqlite.core.Prepare
 	    stream.read(_bytes, 0, stream.available());
 	    statement.bindBlob(parameterIndex, _bytes);
 	} catch (IOException e) {
-	    logger.error("Can't set blob to statement for parameter index : " + parameterIndex, e);
-	    throw new SQLiteException(e);
+	    throw new SQLiteException("Can't set blob to statement for parameter index : " + parameterIndex, e);
 	}
     }
 

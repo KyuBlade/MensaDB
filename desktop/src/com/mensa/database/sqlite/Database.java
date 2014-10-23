@@ -6,15 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.mensa.database.sqlite.core.SQLiteException;
 import com.mensa.database.sqlite.core.SQLiteRuntimeException;
 
 public class Database implements com.mensa.database.sqlite.core.Database {
-
-    private static final Logger logger = LoggerFactory.getLogger(Database.class);
 
     private SQLiteDatabaseHelper helper;
 
@@ -35,12 +30,23 @@ public class Database implements com.mensa.database.sqlite.core.Database {
     }
 
     @Override
-    public void setupDatabase() {
+    public void setupDatabase() throws SQLiteException {
 	try {
 	    Class.forName("org.sqlite.JDBC");
 	} catch (ClassNotFoundException e) {
-	    logger.error("Unable to load the SQLite JDBC driver. Their might be a problem with your build path or project setup.", e);
-	    throw new SQLiteRuntimeException(e);
+	    throw new SQLiteException("Unable to load the SQLite JDBC driver. Their might be a problem with your build path or project setup.", e);
+	}
+    }
+
+    @Override
+    public void openDatabase() throws SQLiteException {
+	if (helper == null)
+	    helper = new SQLiteDatabaseHelper(dbName, dbVersion, dbOnCreateQuery, dbOnUpgradeQuery);
+
+	try {
+	    connection = DriverManager.getConnection("jdbc:sqlite:" + dbName);
+	} catch (SQLException e) {
+	    throw new SQLiteException("Unable to open " + dbName, e);
 	}
     }
 
@@ -55,7 +61,7 @@ public class Database implements com.mensa.database.sqlite.core.Database {
 	    preparedStatement = new PreparedStatement();
 	    helper.onCreate(stmt);
 	} catch (SQLException e) {
-	    throw new SQLiteException(e);
+	    throw new SQLiteException("Unable to open or create databse " + dbName, e);
 	}
     }
 
@@ -74,8 +80,7 @@ public class Database implements com.mensa.database.sqlite.core.Database {
 	try {
 	    connection.setAutoCommit(false);
 	} catch (SQLException e) {
-	    logger.error("Error when begining transaction", e);
-	    throw new SQLiteException(e);
+	    throw new SQLiteException("Error when begining transaction", e);
 	}
     }
 
@@ -84,8 +89,7 @@ public class Database implements com.mensa.database.sqlite.core.Database {
 	try {
 	    connection.commit();
 	} catch (SQLException e) {
-	    logger.error("Can't commit batch to database", e);
-	    throw new SQLiteException(e);
+	    throw new SQLiteException("Can't commit batch to database", e);
 	}
     }
 
@@ -94,8 +98,7 @@ public class Database implements com.mensa.database.sqlite.core.Database {
 	try {
 	    connection.setAutoCommit(false);
 	} catch (SQLException e) {
-	    logger.error("Error when ending transaction", e);
-	    throw new SQLiteException(e);
+	    throw new SQLiteException("Error when ending transaction", e);
 	}
     }
 
@@ -137,8 +140,7 @@ public class Database implements com.mensa.database.sqlite.core.Database {
 	try {
 	    return stmt.getGeneratedKeys().getLong(1);
 	} catch (SQLException e) {
-	    logger.error("There was an error in getting the last generated id", e);
-	    throw new SQLiteRuntimeException(e);
+	    throw new SQLiteRuntimeException("There was an error in getting the last generated id", e);
 	}
     }
 
@@ -149,8 +151,7 @@ public class Database implements com.mensa.database.sqlite.core.Database {
 	    preparedStatement.setStatement(_statement);
 
 	} catch (SQLException e) {
-	    logger.error("There was an error in getting the prepared statement for query : " + query, e);
-	    throw new SQLiteException(e);
+	    throw new SQLiteRuntimeException("There was an error in getting the prepared statement for query : " + query, e);
 	}
 
 	return preparedStatement;

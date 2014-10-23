@@ -1,7 +1,5 @@
 package com.mensa.database.sqlite.core;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * A factory class that creates new database objects and returns references to them. See {@link DatabaseFactory#getNewDatabase(String, int, String, String)} for more details.
@@ -9,8 +7,6 @@ import org.slf4j.LoggerFactory;
  * @author M Rafay Aleem
  */
 public class DatabaseFactory {
-
-    private static final Logger logger = LoggerFactory.getLogger(DatabaseFactory.class);
 
     private static DatabaseManager manager;
 
@@ -31,18 +27,15 @@ public class DatabaseFactory {
      * @param dbOnUpgradeQuery The query that should be executed on upgrading the database from an old version to a new one.
      * @return Returns a {@link Database} object pointing to an existing or not-yet-created database.
      */
-    public static Database getNewDatabase(SQLiteContext<?> context, String dbName, int dbVersion, String dbOnCreateQuery, String dbOnUpgradeQuery) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+    public static Database getNewDatabase(SQLiteContext<?> context, String dbName, int dbVersion, String dbOnCreateQuery, String dbOnUpgradeQuery) throws SQLiteException {
 	try {
 	    manager = (DatabaseManager) Class.forName("com.mensa.database.sqlite.DatabaseManager").newInstance();
 	} catch (ClassNotFoundException e) {
-	    logger.error("Unable to load database driver", e);
-	    throw e;
+	    throw new SQLiteException("Unable to load database driver", e);
 	} catch (InstantiationException e) {
-	    logger.error("Unable to load database driver", e);
-	    throw e;
+	    throw new SQLiteException("Unable to load database driver", e);
 	} catch (IllegalAccessException e) {
-	    logger.error("Unable to load database driver", e);
-	    throw e;
+	    throw new SQLiteException("Unable to load database driver", e);
 	}
 
 	return manager.getNewDatabase(context, dbName, dbVersion, dbOnCreateQuery, dbOnUpgradeQuery);

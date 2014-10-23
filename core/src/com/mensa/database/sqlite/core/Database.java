@@ -21,10 +21,17 @@ public interface Database {
      * This method is needed to be called only once before any database related activity can be performed. The method performs the
      * necessary procedures for the database. However, a database will not be opened/created until {@link Database#openOrCreateDatabase()} is called.
      */
-    public void setupDatabase();
+    public void setupDatabase() throws SQLiteException;
+    
+    /**
+     * Open an already existing database.
+     * 
+     * @throws SQLiteException
+     */
+    public void openDatabase() throws SQLiteException;
 
     /**
-     * Opens an already existing database or creates a new database if it doesn't already exist.
+     * Open an already existing database or creates a new database if it doesn't already exist.
      * 
      * @throws SQLiteGdxException
      */
