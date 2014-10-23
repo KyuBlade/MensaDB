@@ -68,8 +68,12 @@ public class Database implements com.mensa.database.sqlite.core.Database {
     @Override
     public void closeDatabase() throws SQLiteException {
 	try {
-	    stmt.close();
-	    connection.close();
+	    if (stmt != null) {
+		stmt.close();
+	    }
+	    if (connection != null) {
+		connection.close();
+	    }
 	} catch (SQLException e) {
 	    throw new SQLiteException(e);
 	}
