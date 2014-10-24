@@ -11,8 +11,9 @@ public interface DatabaseManager {
      * etc.). Then dbOnCreateQuery will be executed. However, dbOnUpgradeQuery won't be executed on downgrading the database
      * version.
      * 
-     * @param the android context or null for desktop
-     * @param dbName The name of the database.
+     * @param context the android context or null for desktop
+     * @param isResource resource mode
+     * @param dbName the name of the database.
      * @param dbVersion number of the database (starting at 1); if the database is older, dbOnUpgradeQuery will be used to upgrade
      * the database (on Android only)
      * @param dbOnCreateQuery The query that should be executed on the creation of the database. This query would usually create
@@ -21,5 +22,5 @@ public interface DatabaseManager {
      * @return Returns a {@link Database} object pointing to an existing or not-yet-created database.
      * @throws IllegalArgumentException throw from android if the context is not an android context
      */
-    public Database getNewDatabase(SQLiteContext<?> context, String dbName, int dbVersion, String dbOnCreateQuery, String dbOnUpgradeQuery) throws IllegalArgumentException;
+    public Database getNewDatabase(SQLiteContext<?> context, boolean isResource, String dbName, int dbVersion, String dbOnCreateQuery, String dbOnUpgradeQuery) throws IllegalArgumentException;
 }

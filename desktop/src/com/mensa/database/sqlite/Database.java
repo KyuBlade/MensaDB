@@ -14,6 +14,7 @@ public class Database implements com.mensa.database.sqlite.core.Database {
     private SQLiteDatabaseHelper helper;
 
     private final String dbName;
+    private final boolean isResource;
     private final int dbVersion;
     private final String dbOnCreateQuery;
     private final String dbOnUpgradeQuery;
@@ -22,8 +23,9 @@ public class Database implements com.mensa.database.sqlite.core.Database {
     private Statement stmt;
     private PreparedStatement preparedStatement;
 
-    protected Database(String dbName, int dbVersion, String dbOnCreateQuery, String dbOnUpgradeQuery) {
+    protected Database(String dbName, boolean isResource, int dbVersion, String dbOnCreateQuery, String dbOnUpgradeQuery) {
 	this.dbName = dbName;
+	this.isResource = isResource;
 	this.dbVersion = dbVersion;
 	this.dbOnCreateQuery = dbOnCreateQuery;
 	this.dbOnUpgradeQuery = dbOnUpgradeQuery;
@@ -44,7 +46,7 @@ public class Database implements com.mensa.database.sqlite.core.Database {
 	    helper = new SQLiteDatabaseHelper(dbName, dbVersion, dbOnCreateQuery, dbOnUpgradeQuery);
 
 	try {
-	    connection = DriverManager.getConnection("jdbc:sqlite:" + dbName);
+	    connection = DriverManager.getConnection("jdbc:sqlite:" + ((isResource) ? ":resource:" : "") + dbName);
 	    stmt = connection.createStatement();
 	    preparedStatement = new PreparedStatement();
 	    helper.onCreate(stmt);

@@ -1,5 +1,7 @@
 package com.mensa.database.sqlite.core;
 
+import java.io.IOException;
+
 /**
  * This public interface contains the necessary methods to setup and execute queries on a database. The factory method {@link DatabaseFactory#getNewDatabase(String, int, String, String)} will return a
  * database object that implements this
@@ -28,7 +30,7 @@ public interface Database {
      * 
      * @throws SQLiteGdxException
      */
-    public void openOrCreateDatabase() throws SQLiteException;
+    public void openOrCreateDatabase() throws IOException, SQLiteException;
 
     /**
      * Closes the opened database and releases all the resources related to this database.

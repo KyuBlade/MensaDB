@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteStatement;
 import com.mensa.database.sqlite.core.SQLiteException;
 
 public class PreparedStatement implements com.mensa.database.sqlite.core.PreparedStatement {
-    
+
     private SQLiteStatement statement;
 
     public PreparedStatement() {
@@ -34,15 +34,17 @@ public class PreparedStatement implements com.mensa.database.sqlite.core.Prepare
 
 	return _rowsAffected;
     }
-    
+
     @Override
     public void clearParameters() throws SQLiteException {
 	statement.clearBindings();
     }
-    
+
     @Override
     public void close() throws SQLiteException {
-	statement.close();
+	if (statement != null) {
+	    statement.close();
+	}
     }
 
     @Override

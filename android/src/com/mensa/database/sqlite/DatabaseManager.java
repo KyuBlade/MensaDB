@@ -11,9 +11,9 @@ public class DatabaseManager implements com.mensa.database.sqlite.core.DatabaseM
     }
 
     @Override
-    public Database getNewDatabase(SQLiteContext<?> context, String databaseName, int databaseVersion, String databaseCreateQuery, String dbOnUpgradeQuery) throws IllegalArgumentException {
+    public Database getNewDatabase(SQLiteContext<?> context, boolean isResource, String databaseName, int databaseVersion, String databaseCreateQuery, String dbOnUpgradeQuery) throws IllegalArgumentException {
 	if (context.getContext() instanceof Context) {
-	    return new Database((Context) context.getContext(), databaseName, databaseVersion, databaseCreateQuery, dbOnUpgradeQuery);
+	    return new Database((Context) context.getContext(), isResource, databaseName, databaseVersion, databaseCreateQuery, dbOnUpgradeQuery);
 	} else {
 	    throw new IllegalArgumentException("Context should be an android context");
 	}

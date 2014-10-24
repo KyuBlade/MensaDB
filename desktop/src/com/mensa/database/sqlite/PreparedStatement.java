@@ -14,7 +14,6 @@ public class PreparedStatement implements com.mensa.database.sqlite.core.Prepare
     public void execute() throws SQLiteException {
 	try {
 	    statement.execute();
-	    statement.close();
 	} catch (SQLException e) {
 	    throw new SQLiteException("There is an error in executing the prepared statement", e);
 	}

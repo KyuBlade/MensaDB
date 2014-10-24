@@ -19,6 +19,7 @@ public class DatabaseFactory {
      * downgrading the database version.
      * 
      * @param context (For android only) the application context or null for non android application
+     * @param isResource set to true if the database is in the asset (It will be open in read-only mode on desktop and use a readwrite copy on android)
      * @param dbName the name of the database.
      * @param dbVersion number of the database (starting at 1); if the database is older, dbOnUpgradeQuery will be used to upgrade
      * the database (on Android only)
@@ -27,7 +28,7 @@ public class DatabaseFactory {
      * @param dbOnUpgradeQuery The query that should be executed on upgrading the database from an old version to a new one.
      * @return Returns a {@link Database} object pointing to an existing or not-yet-created database.
      */
-    public static Database getNewDatabase(SQLiteContext<?> context, String dbName, int dbVersion, String dbOnCreateQuery, String dbOnUpgradeQuery) throws SQLiteException {
+    public static Database getNewDatabase(SQLiteContext<?> context, boolean isResource, String dbName, int dbVersion, String dbOnCreateQuery, String dbOnUpgradeQuery) throws SQLiteException {
 	try {
 	    manager = (DatabaseManager) Class.forName("com.mensa.database.sqlite.DatabaseManager").newInstance();
 	} catch (ClassNotFoundException e) {
@@ -38,7 +39,7 @@ public class DatabaseFactory {
 	    throw new SQLiteException("Unable to load database driver", e);
 	}
 
-	return manager.getNewDatabase(context, dbName, dbVersion, dbOnCreateQuery, dbOnUpgradeQuery);
+	return manager.getNewDatabase(context, isResource, dbName, dbVersion, dbOnCreateQuery, dbOnUpgradeQuery);
     }
 
     private DatabaseFactory() {
