@@ -13,14 +13,12 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.mensa.database.sqlite.core.SQLiteException;
 import com.mensa.database.sqlite.core.SQLiteRuntimeException;
-import com.sun.corba.se.spi.activation._InitialNameServiceImplBase;
 
 public class Database implements com.mensa.database.sqlite.core.Database {
 
     private SQLiteDatabaseHelper helper;
     private SQLiteDatabase database;
     private Context context;
-    private PreparedStatement preparedStatement;
 
     private boolean isResource;
     private final String dbName;
@@ -52,7 +50,7 @@ public class Database implements com.mensa.database.sqlite.core.Database {
 		if (_dbFile.createNewFile()) {
 		    OutputStream _output = new FileOutputStream(_dbFile);
 		    byte[] _bytes = new byte[1024];
-		    while (_stream.read(_bytes) > 0) {
+		    while (_stream.read(_bytes) != 1) {
 			_output.write(_bytes);
 		    }
 		    _output.flush();
@@ -65,7 +63,6 @@ public class Database implements com.mensa.database.sqlite.core.Database {
 
 	helper = new SQLiteDatabaseHelper(context, _dbName, null, dbVersion, dbOnCreateQuery, dbOnUpgradeQuery);
 	database = helper.getWritableDatabase();
-	preparedStatement = new PreparedStatement();
     }
 
     @Override
@@ -76,9 +73,6 @@ public class Database implements com.mensa.database.sqlite.core.Database {
 	    }
 	    if (database != null) {
 		database.close();
-	    }
-	    if (preparedStatement != null) {
-		preparedStatement.close();
 	    }
 	} catch (android.database.sqlite.SQLiteException e) {
 	    throw new SQLiteException("Database wasn't closed properly", e);
@@ -104,29 +98,26 @@ public class Database implements com.mensa.database.sqlite.core.Database {
 	try {
 	    database.execSQL(sql);
 	} catch (SQLException e) {
-	    throw new com.mensa.database.sqlite.core.SQLiteException(e);
-	}
-    }
-
-    @Override
-    public DatabaseCursor rawQuery(String sql) throws SQLiteException {
-	DatabaseCursor aCursor = new DatabaseCursor();
-	try {
-	    Cursor tmp = database.rawQuery(sql, null);
-	    aCursor.setNativeCursor(tmp);
-	    return aCursor;
-	} catch (android.database.sqlite.SQLiteException e) {
 	    throw new SQLiteException(e);
 	}
     }
 
     @Override
+    public DatabaseCursor rawQuery(String sql) throws SQLiteException {
+	return rawQuery(null, sql);
+    }
+
+    @Override
     public DatabaseCursor rawQuery(com.mensa.database.sqlite.core.DatabaseCursor cursor, String sql) throws SQLiteException {
-	DatabaseCursor aCursor = (DatabaseCursor) cursor;
+	DatabaseCursor _cursor = (DatabaseCursor) cursor;
+
 	try {
-	    Cursor tmp = database.rawQuery(sql, null);
-	    aCursor.setNativeCursor(tmp);
-	    return aCursor;
+	    Cursor _tmp = database.rawQuery(sql, null);
+	    if (_cursor == null) {
+		_cursor = new DatabaseCursor(_tmp);
+	    }
+
+	    return _cursor;
 	} catch (android.database.sqlite.SQLiteException e) {
 	    throw new SQLiteException(e);
 	}
@@ -142,10 +133,12 @@ public class Database implements com.mensa.database.sqlite.core.Database {
     }
 
     @Override
-    public com.mensa.database.sqlite.core.PreparedStatement getPreparedStatement(String query) throws SQLiteRuntimeException {
-	preparedStatement.setStatement(database.compileStatement(query));
+    public PreparedStatement getPreparedStatement(String sql) throws SQLiteRuntimeException {
+	return new PreparedStatement(sql, this);
+    }
 
-	return (com.mensa.database.sqlite.core.PreparedStatement) preparedStatement;
+    protected SQLiteDatabase getDatabase() {
+	return database;
     }
 
 }

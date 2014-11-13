@@ -9,6 +9,10 @@ public class DatabaseCursor implements com.mensa.database.sqlite.core.DatabaseCu
 
     private Cursor cursor;
 
+    protected DatabaseCursor(Cursor cursor) {
+	this.cursor = cursor;
+    }
+
     @Override
     public byte[] getBlob(int columnIndex) {
 	try {
@@ -103,7 +107,4 @@ public class DatabaseCursor implements com.mensa.database.sqlite.core.DatabaseCu
 	}
     }
 
-    public void setNativeCursor(Cursor cursorRef) {
-	cursor = cursorRef;
-    }
 }

@@ -5,6 +5,13 @@ apply plugin: "java"
 sourceCompatibility = 1.6
 sourceSets.main.java.srcDirs = ["src/"]
 
+task sourcesJar(type:Jar){
+    from sourceSets.main.allSource
+    classifier = 'sources'
+}
+
+artifacts {  archives sourcesJar  }
+
 project.archivesBaseName = appName + "-desktop"
 
 eclipse {

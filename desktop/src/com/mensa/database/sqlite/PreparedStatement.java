@@ -2,6 +2,7 @@ package com.mensa.database.sqlite;
 
 import java.io.InputStream;
 import java.sql.Blob;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.mensa.database.sqlite.core.SQLiteException;
@@ -9,6 +10,23 @@ import com.mensa.database.sqlite.core.SQLiteException;
 public class PreparedStatement implements com.mensa.database.sqlite.core.PreparedStatement {
 
     private java.sql.PreparedStatement statement;
+
+    public PreparedStatement(java.sql.PreparedStatement preparedStatement) {
+	this.statement = preparedStatement;
+    }
+
+    @Override
+    public DatabaseCursor executeQuery() throws SQLiteException {
+	try {
+	    ResultSet _result = statement.executeQuery();
+	    DatabaseCursor _cursor = new com.mensa.database.sqlite.DatabaseCursor();
+	    _cursor.setNativeCursor(_result);
+
+	    return _cursor;
+	} catch (SQLException e) {
+	    throw new SQLiteException("There is an error in executing the prepared statement", e);
+	}
+    }
 
     @Override
     public void execute() throws SQLiteException {

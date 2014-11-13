@@ -5,6 +5,8 @@ import java.sql.Blob;
 
 public interface PreparedStatement {
 
+    public DatabaseCursor executeQuery() throws SQLiteException;
+    
     public void execute() throws SQLiteException;
 
     public long executeInsert() throws SQLiteException;

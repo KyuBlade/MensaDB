@@ -21,7 +21,6 @@ public class Database implements com.mensa.database.sqlite.core.Database {
 
     private Connection connection;
     private Statement stmt;
-    private PreparedStatement preparedStatement;
 
     protected Database(String dbName, boolean isResource, int dbVersion, String dbOnCreateQuery, String dbOnUpgradeQuery) {
 	this.dbName = dbName;
@@ -48,7 +47,6 @@ public class Database implements com.mensa.database.sqlite.core.Database {
 	try {
 	    connection = DriverManager.getConnection("jdbc:sqlite:" + ((isResource) ? ":resource:" : "") + dbName);
 	    stmt = connection.createStatement();
-	    preparedStatement = new PreparedStatement();
 	    helper.onCreate(stmt);
 	} catch (SQLException e) {
 	    throw new SQLiteException("Unable to open or create database " + dbName, e);
@@ -142,13 +140,11 @@ public class Database implements com.mensa.database.sqlite.core.Database {
     public PreparedStatement getPreparedStatement(String query) throws SQLiteException {
 	try {
 	    java.sql.PreparedStatement _statement = connection.prepareStatement(query);
-	    preparedStatement.setStatement(_statement);
-
+	    
+	    return new PreparedStatement(_statement);
 	} catch (SQLException e) {
 	    throw new SQLiteRuntimeException("There was an error in getting the prepared statement for query : " + query, e);
 	}
-
-	return preparedStatement;
     }
 
 }
