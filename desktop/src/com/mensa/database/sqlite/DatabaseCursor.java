@@ -28,7 +28,7 @@ public class DatabaseCursor implements com.mensa.database.sqlite.core.DatabaseCu
 	    Blob blob = resultSet.getBlob(columnIndex + 1);
 	    return blob.getBytes(1, (int) blob.length());
 	} catch (SQLException e) {
-	    throw new SQLiteRuntimeException("There was an error in getting the blob at column " + columnIndex, e);
+	    throw new SQLiteRuntimeException("There was an error in getting the blob at column " + (columnIndex + 1), e);
 	}
     }
 
@@ -37,7 +37,7 @@ public class DatabaseCursor implements com.mensa.database.sqlite.core.DatabaseCu
 	try {
 	    return resultSet.getDouble(columnIndex + 1);
 	} catch (SQLException e) {
-	    throw new SQLiteRuntimeException("There was an error in getting the double at column " + columnIndex, e);
+	    throw new SQLiteRuntimeException("There was an error in getting the double at column " + (columnIndex + 1), e);
 	}
     }
 
@@ -46,7 +46,7 @@ public class DatabaseCursor implements com.mensa.database.sqlite.core.DatabaseCu
 	try {
 	    return resultSet.getFloat(columnIndex + 1);
 	} catch (SQLException e) {
-	    throw new SQLiteRuntimeException("There was an error in getting the float at column " + columnIndex, e);
+	    throw new SQLiteRuntimeException("There was an error in getting the float at column " + (columnIndex + 1), e);
 	}
     }
 
@@ -55,7 +55,7 @@ public class DatabaseCursor implements com.mensa.database.sqlite.core.DatabaseCu
 	try {
 	    return resultSet.getInt(columnIndex + 1);
 	} catch (SQLException e) {
-	    throw new SQLiteRuntimeException("There was an error in getting the integer at column " + columnIndex, e);
+	    throw new SQLiteRuntimeException("There was an error in getting the integer at column " + (columnIndex + 1), e);
 	}
     }
 
@@ -64,7 +64,7 @@ public class DatabaseCursor implements com.mensa.database.sqlite.core.DatabaseCu
 	try {
 	    return resultSet.getLong(columnIndex + 1);
 	} catch (SQLException e) {
-	    throw new SQLiteRuntimeException("There was an error in getting the long at column " + columnIndex, e);
+	    throw new SQLiteRuntimeException("There was an error in getting the long at column " + (columnIndex + 1), e);
 	}
     }
 
@@ -73,7 +73,7 @@ public class DatabaseCursor implements com.mensa.database.sqlite.core.DatabaseCu
 	try {
 	    return resultSet.getShort(columnIndex + 1);
 	} catch (SQLException e) {
-	    throw new SQLiteRuntimeException("There was an error in getting the short at column " + columnIndex, e);
+	    throw new SQLiteRuntimeException("There was an error in getting the short at column " + (columnIndex + 1), e);
 	}
     }
 
@@ -82,7 +82,7 @@ public class DatabaseCursor implements com.mensa.database.sqlite.core.DatabaseCu
 	try {
 	    return resultSet.getString(columnIndex + 1);
 	} catch (SQLException e) {
-	    throw new SQLiteRuntimeException("There was an error in getting the string at column " + columnIndex, e);
+	    throw new SQLiteRuntimeException("There was an error in getting the string at column " + (columnIndex + 1), e);
 	}
     }
 
