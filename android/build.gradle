@@ -1,12 +1,7 @@
+targetCompatibility = 1.6
 sourceCompatibility = 1.6
-sourceSets.main.java.srcDirs = ["src/"]
 
-task sourcesJar(type:Jar){
-    from sourceSets.main.allSource
-    classifier = 'sources'
-}
-
-artifacts {  archives sourcesJar  }
+sourceSets.main.java.srcDirs = ["src"]
 
 project.archivesBaseName = appName + "-android"
 eclipse {
