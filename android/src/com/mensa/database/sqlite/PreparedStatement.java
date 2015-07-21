@@ -34,7 +34,8 @@ public class PreparedStatement implements com.mensa.database.sqlite.core.Prepare
 
     @Override
     public DatabaseCursor executeQuery() throws SQLiteException {
-	Cursor _nativeCursor = database.getDatabase().rawQuery(sql, (String[]) (parameters.values().toArray()));
+	Cursor _nativeCursor = database.getDatabase().rawQuery(sql,
+		(String[]) (parameters.values().toArray()));
 	DatabaseCursor _cursor = new com.mensa.database.sqlite.DatabaseCursor(_nativeCursor);
 
 	return _cursor;
@@ -131,7 +132,8 @@ public class PreparedStatement implements com.mensa.database.sqlite.core.Prepare
 	    setBytes(parameterIndex, _output.toByteArray());
 	    _output.close();
 	} catch (IOException e) {
-	    throw new SQLiteException("Can't set blob to statement for parameter index : " + parameterIndex, e);
+	    throw new SQLiteException(
+		    "Can't set blob to statement for parameter index : " + parameterIndex, e);
 	}
     }
 
@@ -150,5 +152,10 @@ public class PreparedStatement implements com.mensa.database.sqlite.core.Prepare
 		DatabaseUtils.bindObjectToProgram(statement, i, _value);
 	    }
 	}
+    }
+
+    @Override
+    public String toString() {
+	return statement.toString();
     }
 }

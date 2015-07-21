@@ -26,7 +26,8 @@ public class Database implements com.mensa.database.sqlite.core.Database {
     private final String dbOnCreateQuery;
     private final String dbOnUpgradeQuery;
 
-    protected Database(Context context, boolean isResource, String dbName, int dbVersion, String dbOnCreateQuery, String dbOnUpgradeQuery) {
+    protected Database(Context context, boolean isResource, String dbName, int dbVersion,
+	    String dbOnCreateQuery, String dbOnUpgradeQuery) {
 	this.context = context;
 	this.isResource = isResource;
 	this.dbName = dbName;
@@ -61,7 +62,8 @@ public class Database implements com.mensa.database.sqlite.core.Database {
 
 	}
 
-	helper = new SQLiteDatabaseHelper(context, _dbName, null, dbVersion, dbOnCreateQuery, dbOnUpgradeQuery);
+	helper = new SQLiteDatabaseHelper(context, _dbName, null, dbVersion, dbOnCreateQuery,
+		dbOnUpgradeQuery);
 	database = helper.getWritableDatabase();
     }
 
@@ -108,7 +110,8 @@ public class Database implements com.mensa.database.sqlite.core.Database {
     }
 
     @Override
-    public DatabaseCursor rawQuery(com.mensa.database.sqlite.core.DatabaseCursor cursor, String sql) throws SQLiteException {
+    public DatabaseCursor rawQuery(com.mensa.database.sqlite.core.DatabaseCursor cursor, String sql)
+	    throws SQLiteException {
 	DatabaseCursor _cursor = (DatabaseCursor) cursor;
 
 	try {
@@ -128,7 +131,8 @@ public class Database implements com.mensa.database.sqlite.core.Database {
 	try {
 	    return rawQuery("SELECT last_insert_rowid();").getLong(0);
 	} catch (SQLiteException e) {
-	    throw new SQLiteRuntimeException("There was an error in getting the last generated id", e);
+	    throw new SQLiteRuntimeException("There was an error in getting the last generated id",
+		    e);
 	}
     }
 
